@@ -3,6 +3,7 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setClearColor(0x0000ff, 1)
 document.body.appendChild( renderer.domElement );
 
 // const geometry = new THREE.BoxGeometry();
@@ -11,7 +12,8 @@ const imgloader = new THREE.TextureLoader()
 const material = new THREE.MeshBasicMaterial( {
   color: 0xff0000,
   map: imgloader.load('data/mama/mama-001.png'),
-  transparent: true
+  transparent: true,
+  side: THREE.DoubleSide
 } );
 const mesh = new THREE.Mesh( geometry, material );
 scene.add( mesh );
