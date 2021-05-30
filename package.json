@@ -1,0 +1,40 @@
+{
+  "name": "animatron",
+  "version": "0.0.1",
+  "description": "An image sequencer and sampler.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "bin/animatron-test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loopier/animatron.git"
+  },
+  "keywords": [
+    "image",
+    "sequencer",
+    "sampler",
+    "live",
+    "coding",
+    "remote",
+    "osc",
+    "midi"
+  ],
+  "author": "Roger Pibernat",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/loopier/animatron/issues"
+  },
+  "homepage": "https://github.com/loopier/animatron#readme",
+  "devDependencies": {
+    "electron": "^13.0.1",
+    "electron-rebuild": "^2.3.5"
+  },
+  "dependencies": {
+    "electron-log": "^4.3.5",
+    "electron-reload": "^1.5.0",
+    "node-osc": "^6.0.2",
+    "three": "^0.129.0"
+  }
+}
