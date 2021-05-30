@@ -7,7 +7,12 @@ document.body.appendChild( renderer.domElement );
 
 // const geometry = new THREE.BoxGeometry();
 const geometry = new THREE.PlaneGeometry(1,1);
-const material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+const imgloader = new THREE.TextureLoader()
+const material = new THREE.MeshBasicMaterial( {
+  color: 0xff0000,
+  map: imgloader.load('data/mama/mama-001.png'),
+  transparent: true
+} );
 const mesh = new THREE.Mesh( geometry, material );
 scene.add( mesh );
 camera.position.z = 5;
