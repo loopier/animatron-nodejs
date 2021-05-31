@@ -1,6 +1,8 @@
 const {app, BrowserWindow } = require('electron')
 const path = require('path')
 const log = require('electron-log')
+const Store = require('electron-store');
+Store.initRenderer();
 
 // const osc_module = require('./src/osc.js')
 // const plane_module = require('./src/plane.js')
