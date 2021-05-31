@@ -2,6 +2,9 @@ const {app, BrowserWindow } = require('electron')
 const path = require('path')
 const log = require('electron-log')
 
+// const osc_module = require('./src/osc.js')
+// const plane_module = require('./src/plane.js')
+
 require('electron-reload')(__dirname, {
     electron: path.join(__dirname, 'node_modules', '.bin'),
 })
@@ -18,6 +21,7 @@ function createWindow() {
             preload: path.join(__dirname, 'preload.js')
         }
 
+
         // To make transparent window
         // transparent: true,
         // frame: false
@@ -28,6 +32,7 @@ function createWindow() {
         // ----- end of CSS
     })
 
+    mainWindow.webContents.openDevTools()
     mainWindow.loadFile('index.html')
 }
 
