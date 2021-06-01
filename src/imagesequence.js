@@ -53,12 +53,17 @@ function get( name ) {
     return sequencesmap.get(name);
 }
 
+function has( name ) {
+    return sequencesmap.has( name );
+}
+
 module.exports = {
     ImageSequence: ImageSequence,
     add: add,
     remove: remove,
     list: list,
-    get: get
+    get: get,
+    has: has
 }
 
 // -----------------------------------------------------------------------------

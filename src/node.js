@@ -13,7 +13,12 @@ class Node extends THREE.Mesh {
 
 function add( name, texturename) {
     log.info("add node:", name);
+
     // 'seqs' is declared in animatron.js
+    if ( seqs.has(texturename) == false ) {
+        seqs.add( texturename );
+    }
+
     if ( nodesmap.has(name) ) {
         log.warn(`Node '%s' already exists. Adding texture '%s' to it`, name, texturename);
         nodesmap.get( name ).material = seqs.get(texturename);

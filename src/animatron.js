@@ -42,7 +42,7 @@ animate()
 
 
 function oscReceived(msg) {
-  log.info(msg);
+  log.silly(msg);
   let addr = msg[0];
   let args = msg.slice(1);
   let cmds = oscmap[addr];
