@@ -30,8 +30,8 @@ const oscmap = JSON.parse(fs.readFileSync( datapath + config.get('data.oscmap') 
 log.info('data path:', datapath);
 
 
-let seq = seqs.add("mama");
-let seqa = seqs.add("mama");
+// let seq = seqs.add("mama");
+// let seqa = seqs.add("mama");
 // seqs.list();
 // nodes.add("anode", seq);
 // nodes.add("onode", seqa);
@@ -68,6 +68,8 @@ function oscReceived(msg) {
 
     if (obj == "node") {
       nodes[func](...args);
+    } else if (obj == "sequence") {
+      seqs[func](...args);
     }
   }
   // log.silly("func:", func);
