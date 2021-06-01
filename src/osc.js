@@ -8,5 +8,6 @@ const receiver = new Server(config.get('osc.port'), '0.0.0.0', () => {
 
 receiver.on('message', function(msg) {
     log.info(`Message: ${msg}`);
-    receiver.close();
+    oscReceived(msg);
+    // receiver.close();
 });
