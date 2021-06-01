@@ -26,7 +26,14 @@ class ImageSequence extends THREE.MeshBasicMaterial {
         for(let i=0; i < this.imgs.length; i++) {
             this.imgs[i] = textureloader.load(this.path + "/" + imgfiles[i]);
         }
-        this.map = this.imgs[0];
+        this.frame = 0;
+        this.map = this.imgs[this.frame];
+
+    }
+
+    setFrame( framenumber ) {
+        this.frame = framenumber;
+        this.map = this.imgs[this.frame];
     }
 }
 

@@ -1,9 +1,11 @@
 n = NetAddr("localhost", 1234);
 n.sendMsg("/alo", 1, 2.3, "tres");
+n.sendMsg("/listnodes");
+n.sendMsg("/listsequences");
 n.sendMsg("/loadsequence", "mama");
 n.sendMsg("/loadsequence", "mamo");
-n.sendMsg("/add", "one", "default");
-n.sendMsg("/add", "alo", "mama");
+n.sendMsg("/add", "one", "mama");
+n.sendMsg("/add", "alo", "default");
 n.sendMsg("/new", "one", "mama");
 n.sendMsg("/remove", "one");
 
@@ -14,3 +16,7 @@ n.sendMsg("/color", "alo", 0xff00ff);
 n.sendMsg("/color", "one", 0xff00ff);
 n.sendMsg("/color", "one", 1.0, 0, 40.5);
 n.sendMsg("/moveto", "one", 0, 0.5);
+
+n.sendMsg("/add", "one", "mama"); n.sendMsg("/play", "one");
+n.sendMsg("/add", "one", "mama"); n.sendMsg("/goto", "one", 3);
+n.sendMsg("/goto", "one", 1);

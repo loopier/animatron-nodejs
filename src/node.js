@@ -51,6 +51,19 @@ function get( name ) {
     return nodesmap.get(name);
 }
 
+function play( name ) {
+    log.silly("------------ node.play -----------", name);
+}
+
+function gotoFrame( name, frame ) {
+    log.silly("------------ node.goto -----------", name, frame);
+    let seq = seqs.get( nodesmap.get(name).material.name );
+    seq.setFrame(frame);
+    log.silly(seq);
+    log.silly(seq.frame);
+    // nodesmap.get(name).material.map =
+}
+
 function rotate( name, normalizedvalue ) {
     nodesmap.get(name).rotateZ(normalizedvalue * 2 * Math.PI);
 }
@@ -70,6 +83,8 @@ module.exports = {
     remove: remove,
     list: list,
     get: get,
+    play: play,
+    gotoFrame: gotoFrame,
     rotate: rotate,
     moveto: moveto,
     color: color
