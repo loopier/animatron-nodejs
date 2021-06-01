@@ -20,6 +20,9 @@ document.body.appendChild( renderer.domElement );
 
 camera.position.z = 2;
 
+// -----------------------------------------------------------------------------
+// config
+// -----------------------------------------------------------------------------
 // --- setters
 // config.set('osc.port', 1234);
 // config.set('data.path', '/home/roger/.local/share/animatron');
@@ -28,19 +31,6 @@ camera.position.z = 2;
 const datapath = homedir + config.get('data.path') + "/";
 const oscmap = JSON.parse(fs.readFileSync( datapath + config.get('data.oscmap') ));
 log.info('data path:', datapath);
-
-
-// let seq = seqs.add("mama");
-// let seqa = seqs.add("mama");
-// seqs.list();
-// nodes.add("anode", seq);
-// nodes.add("onode", seqa);
-// let n = nodes.get("onode");
-// n.position.x = 1.4
-// n.material.color.r = 100
-// nodes.list();
-// nodes.remove("anode");
-// nodes.list();
 
 
 function animate() {
@@ -56,30 +46,26 @@ function oscReceived(msg) {
   let addr = msg[0];
   let args = msg.slice(1);
   let cmds = oscmap[addr];
-  // log.silly("addr:", addr);
-  // log.silly("args:", args);
-  // log.silly("cmds:", cmds);
   for(cmd of cmds) {
     let obj = cmd.split(".")[0];
     let func = cmd.split(".")[1];
-    // log.silly("cmd:", cmd);
-    // log.silly("obj:", obj);
-    // log.silly("func:", func);
-
     if (obj == "node") {
       nodes[func](...args);
     } else if (obj == "sequence") {
       seqs[func](...args);
     }
   }
-  // log.silly("func:", func);
-  log.silly(oscmap)
-
-
+  // log.silly(oscmap)
 }
 
-function add() {
-  log.silly("------------add fn------------")
-}
-
-// nodes['add']("anode", seq)
+// let seq = seqs.add("mama");
+// let seqa = seqs.add("mama");
+// seqs.list();
+// nodes.add("anode", seq);
+// nodes.add("onode", seqa);
+// let n = nodes.get("onode");
+// n.position.x = 1.4
+// n.material.color.r = 100
+// nodes.list();
+// nodes.remove("anode");
+// nodes.list();

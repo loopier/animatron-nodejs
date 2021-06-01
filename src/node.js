@@ -14,8 +14,14 @@ class Node extends THREE.Mesh {
 function add( name, texturename) {
     log.info("add node:", name);
     // 'seqs' is declared in animatron.js
-    nodesmap.set( name, new Node(name, seqs.get(texturename)) );
-    scene.add(nodesmap.get(name));
+    if ( nodesmap.has(name) ) {
+        log.warn(`Node '%s' already exists. Adding texture '%s' to it`, name, texturename);
+        nodesmap.get( name ).material = seqs.get(texturename);
+    } else {
+        log.info(`Add new node '%s' with texture '%s'`, name, texturename);
+        nodesmap.set( name, new Node(name, seqs.get(texturename)) );
+        scene.add(nodesmap.get(name));
+    }
 }
 
 function remove( name ) {
@@ -50,7 +56,7 @@ function moveto( name, x, y) {
 
 function color( name, r, g, b ) {
     log.silly(r,g,b);
-    nodesmap.get(name).material.color.set(r, g, b);
+    nodesmap.get(name).material.color.setRGB(r, g, b);
 }
 
 module.exports = {
