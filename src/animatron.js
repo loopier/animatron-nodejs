@@ -11,6 +11,7 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 const renderer = new THREE.WebGLRenderer();
 
 const osc = require(__dirname + '/src/osc.js');
+const midi = require(__dirname + '/src/midi.js');
 const nodes = require(__dirname + '/src/node.js');
 const seqs = require(__dirname + '/src/imagesequence.js');
 
