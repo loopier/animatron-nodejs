@@ -20,3 +20,6 @@ n.sendMsg("/moveto", "one", 0, 0.5);
 n.sendMsg("/add", "one", "mama"); n.sendMsg("/play", "one");
 n.sendMsg("/add", "one", "mama"); n.sendMsg("/goto", "one", 3);
 n.sendMsg("/goto", "one", 1);
+
+n.sendMsg("/add", "one", "mama");
+n.sendMsg("/select", "one");

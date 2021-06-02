@@ -29,6 +29,7 @@ function newMidiMsg( msg ) {
     switch( midicmds[msg[0]] ) {
     case "noteOn":
         log.silly( `note on: %d - vel: %d`, n, val );
+        log.silly(nodes)
         break;
     case "noteOff":
         log.silly( `note off: %d`, n);

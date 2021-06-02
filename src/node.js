@@ -2,6 +2,7 @@
 // scene.add( mesh );
 // camera.position.z = 5;
 const nodesmap = new Map();
+const selected = [];
 
 class Node extends THREE.Mesh {
     constructor( name, texture ){
@@ -77,6 +78,17 @@ function color( name, r, g, b ) {
     nodesmap.get(name).material.color.setRGB(r, g, b);
 }
 
+function select( name ) {
+    selected.push( name );
+    log.info("selected nodes:", selected)
+}
+
+function deselect( name ) {
+    let node = selected.indexOf(name);
+    if (node !== -1) { selected.splice(node) }
+    log.info("selected nodes:", selected)
+}
+
 module.exports = {
     Node: Node,
     add: add,
@@ -87,5 +99,7 @@ module.exports = {
     gotoFrame: gotoFrame,
     rotate: rotate,
     moveto: moveto,
-    color: color
+    color: color,
+    select: select,
+    deselect: deselect
 }
