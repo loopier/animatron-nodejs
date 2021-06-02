@@ -56,26 +56,30 @@ function play( name ) {
     log.silly("------------ node.play -----------", name);
 }
 
-function gotoFrame( name, frame ) {
-    log.silly("------------ node.goto -----------", name, frame);
-    let seq = seqs.get( nodesmap.get(name).material.name );
-    seq.setFrame(frame);
-    log.silly(seq);
-    log.silly(seq.frame);
-    // nodesmap.get(name).material.map =
+function gotoFrame( frame ) {
+    for(name of selected) {
+        let seq = seqs.get( nodesmap.get(name).material.name );
+        seq.setFrame(frame);
+    }
 }
 
-function rotate( name, normalizedvalue ) {
-    nodesmap.get(name).rotateZ(normalizedvalue * 2 * Math.PI);
+function rotate( normalizedvalue ) {
+    for(name of selected) {
+        nodesmap.get(name).rotateZ(normalizedvalue * 2 * Math.PI);
+    }
 }
 
-function moveto( name, x, y) {
-    nodesmap.get(name).position.set(x, y);
+function moveto( x, y) {
+    for(name of selected) {
+        nodesmap.get(name).position.set(x, y);
+    }
 }
 
-function color( name, r, g, b ) {
-    log.silly(r,g,b);
-    nodesmap.get(name).material.color.setRGB(r, g, b);
+function color( r, g, b ) {
+    for(name of selected) {
+        log.silly(r,g,b);
+        nodesmap.get(name).material.color.setRGB(r, g, b);
+    }
 }
 
 function select( name ) {
