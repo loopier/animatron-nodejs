@@ -28,11 +28,10 @@ class ImageSequence extends THREE.MeshBasicMaterial {
         }
         this.frame = 0;
         this.map = this.imgs[this.frame];
-
     }
 
     setFrame( framenumber ) {
-        this.frame = framenumber;
+        this.frame = framenumber % this.imgs.length;
         this.map = this.imgs[this.frame];
     }
 }

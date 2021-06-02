@@ -59,14 +59,8 @@ function oscReceived(msg) {
   // log.silly(oscmap)
 }
 
-// let seq = seqs.add("mama");
-// let seqa = seqs.add("mama");
+nodes.add("anode", "mama");
+nodes.add("anodanode", "mama");
+nodes.select("anode");
+// nodes.list();
 // seqs.list();
-// nodes.add("anode", seq);
-// nodes.add("onode", seqa);
-// let n = nodes.get("onode");
-// n.position.x = 1.4
-// n.material.color.r = 100
-// nodes.list();
-// nodes.remove("anode");
-// nodes.list();

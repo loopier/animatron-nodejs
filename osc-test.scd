@@ -22,4 +22,8 @@ n.sendMsg("/add", "one", "mama"); n.sendMsg("/goto", "one", 3);
 n.sendMsg("/goto", "one", 1);
 
 n.sendMsg("/add", "one", "mama");
+n.sendMsg("/add", "alo", "mama");
 n.sendMsg("/select", "one");
+n.sendMsg("/select", "alo");
+n.sendMsg("/deselect", "alo");
+n.sendMsg("/rotate", 1.2.rand);

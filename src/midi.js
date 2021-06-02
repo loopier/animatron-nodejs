@@ -13,7 +13,6 @@ midi().openMidiIn()
 
 
 function midiSetup( obj) {
-    log.info(obj)
     // --------------- remove
     // automatic connections from mpk-mini to midi-in
     const system = require('system-commands');
@@ -29,7 +28,7 @@ function newMidiMsg( msg ) {
     switch( midicmds[msg[0]] ) {
     case "noteOn":
         log.silly( `note on: %d - vel: %d`, n, val );
-        log.silly(nodes)
+        nodes.gotoFrame(n);
         break;
     case "noteOff":
         log.silly( `note off: %d`, n);
