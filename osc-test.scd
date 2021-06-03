@@ -5,6 +5,7 @@ n.sendMsg("/listsequences");
 n.sendMsg("/loadsequence", "mama");
 n.sendMsg("/loadsequence", "mamo");
 n.sendMsg("/add", "one", "mama");
+n.sendMsg("/add", "one", "hom-up-stairs-hd");
 n.sendMsg("/add", "alo", "default");
 n.sendMsg("/new", "one", "mama");
 n.sendMsg("/remove", "one");
@@ -19,7 +20,7 @@ n.sendMsg("/moveto", "one", 0, 0.5);
 
 n.sendMsg("/add", "one", "mama"); n.sendMsg("/play", "one");
 n.sendMsg("/add", "one", "mama"); n.sendMsg("/goto", "one", 3);
-n.sendMsg("/goto", "one", 1);
+n.sendMsg("/goto", 4);
 
 n.sendMsg("/add", "one", "mama");
 n.sendMsg("/add", "alo", "mama");
@@ -27,3 +28,6 @@ n.sendMsg("/select", "one");
 n.sendMsg("/select", "alo");
 n.sendMsg("/deselect", "alo");
 n.sendMsg("/rotate", 1.2.rand);
+
+n.sendMsg("/play", "one");
+n.sendMsg("/play");

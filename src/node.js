@@ -1,21 +1,41 @@
 // const mesh = new THREE.Mesh( geometry, material );
 // scene.add( mesh );
 // camera.position.z = 5;
+const gsap = require('gsap')
 const nodesmap = new Map();
 const selected = [];
+const clock = new THREE.Clock(true);
 
 class Node extends THREE.Mesh {
     constructor( name, texture ){
         super( new THREE.PlaneGeometry(1,1), texture );
         this.name = name;
         // this.texturename: texture.name;
+        // this.fps = 24;
+        // this.framerate = clock.getDelta();
+        // this.frametime = 0;
+    }
+
+    // update() {
+        // this.frametime += clock.getDelta();
+        // if (frametime > (60/fps/60)) {
+        //   // console.log(Math.floor(60*fps/60))
+        //   a =
+        //   update()
+        //   frametime = 0
+        // }
+    // }
+}
+
+function update() {
+    for(node of selected) {
+        get(node).update();
     }
 }
 
 function add( name, texturename) {
     log.info("add node:", name);
 
-    // 'seqs' is declared in animatron.js
     if ( seqs.has(texturename) == false ) {
         seqs.add( texturename );
     }
@@ -52,8 +72,45 @@ function get( name ) {
     return nodesmap.get(name);
 }
 
+function getByIndex( index ) {
+    // should it be from all the nodes or just the selected ones?
+    let name = selected[index % selected.length];
+    return nodesmap.get(name);
+}
+
+function getNameFromIndex( index ) {
+    return selected[index % selected.length];
+}
+
 function play( name ) {
-    log.silly("------------ node.play -----------", name);
+    if (name != null) {
+        log.silly("------------ node.play -----------", name);
+        get(name).material.play();
+        // let mesh = get(name);
+        // log.silly(mesh.material.name);
+        // log.silly(mesh.material.map.image.src);
+        // log.silly(mesh.material.map.image.src);
+        // log.silly(mesh.material.imgs[08].image.src);
+        // log.silly(mesh.material.frameindex);
+        // log.silly(mesh.material);
+        // log.silly(mesh.material.map === mesh.material.frameimg);
+        // mesh.material.map = mesh.material.imgs[08];
+        // gsap.to(mesh.material, {
+        //     duration: 1.4,
+        //     map: 11,
+        //     repeat: 12,
+        //     onUpdate: () => {
+        //         log.silly("alo")
+        //         mesh.map = mesh.material.frameimg;
+        //     }
+        // })
+        return;
+    }
+
+    log.silly("++++++++++++ node.play +++++++++++ selected");
+    for(name of selected) {
+        play(name);
+    }
 }
 
 function gotoFrame( frame ) {
@@ -95,10 +152,13 @@ function deselect( name ) {
 
 module.exports = {
     Node: Node,
+    update: update,
     add: add,
     remove: remove,
     list: list,
     get: get,
+    getByIndex: getByIndex,
+    getNameFromIndex: getNameFromIndex,
     play: play,
     gotoFrame: gotoFrame,
     rotate: rotate,

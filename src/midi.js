@@ -27,8 +27,12 @@ function newMidiMsg( msg ) {
     let val = msg[2];
     switch( midicmds[msg[0]] ) {
     case "noteOn":
+        // TODO: take it from the JSON map
         log.silly( `note on: %d - vel: %d`, n, val );
-        nodes.gotoFrame(n);
+        // nodes.gotoFrame(n);
+        // nodes.play(nodes.get);
+        // let node = nodes.getNameFromIndex(n);
+        // nodes.play(node);
         break;
     case "noteOff":
         log.silly( `note off: %d`, n);

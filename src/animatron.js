@@ -36,6 +36,7 @@ log.info('data path:', datapath);
 
 function animate() {
   requestAnimationFrame( animate );
+  // nodes.update();
   renderer.render( scene, camera );
 }
 
@@ -43,7 +44,7 @@ animate()
 
 
 function oscReceived(msg) {
-  log.silly(msg);
+  // log.silly(msg);
   let addr = msg[0];
   let args = msg.slice(1);
   let cmds = oscmap[addr];
@@ -59,8 +60,41 @@ function oscReceived(msg) {
   // log.silly(oscmap)
 }
 
+// -----------------------------------------------------------------------------
+// test -- REMOVE
+// -----------------------------------------------------------------------------
+// nodes.add("anode", "default");
 nodes.add("anode", "mama");
-nodes.add("anodanode", "mama");
+// nodes.add("anode", "hom-up-stairs-hd");
+// nodes.add("anodanode", "mama");
 nodes.select("anode");
+nodes.play();
+
+// let a = 0;
+// gsap.to(a, {
+//   duration: 1/12,
+//   value: 12,
+//   repeat: -1,
+//   onUpdate: () => { log.silly(a) }
+// });
+
 // nodes.list();
 // seqs.list();
+// var mesh = nodes.get("anode");
+// gsap.to(mesh.material, {
+//   duration: 12,
+//   frameindex: 12,
+//   // map: mesh.material.imgs[Math.floor(mesh.material.frameindex)],
+//   repeat: -1,
+//   ease: "stepped(1)",
+//   onUpdate: () => {
+//     // log.silly(mesh.material.frameindex);
+//     // log.silly(mesh.material.imgs[Math.floor(mesh.material.frameindex)]);
+//     mesh.material.map = mesh.material.imgs[Math.floor(mesh.material.frameindex)];
+//     // log.silly(mesh.material.imgs[Math.floor(mesh.material.frameindex)].image.src);
+//     // log.silly(mesh.material.frameimg.image.src);
+//     // log.silly(mesh.material.imgs[mesh.material.frameindex].image);
+//     // log.silly(mesh.material.imgs[mesh.material]);
+//     // mesh.map = mesh.material.frameimg;
+//   }
+// })
