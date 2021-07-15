@@ -16,10 +16,16 @@ class ImageSequence extends THREE.MeshBasicMaterial {
         let imgfiles = fs.readdirSync(this.path);
         this.imgs = new Array(imgfiles.length);
         for(let i=0; i < this.imgs.length; i++) {
-            this.imgs[i] = textureloader.load(this.path + "/" + imgfiles[i]);
+            this.imgs[i] = textureloader.load(this.path + "/" + imgfiles[i], function (obj) {
+                // w = obj.image.width;
+                // h = obj.image.height;
+                // log.silly("ImageSequence::constructor():", obj.image.width, obj.image.height);
+                // log.silly("ImageSequence::constructor():", obj.image.currentSrc);
+                // log.silly("do something with this!!! pass it to the node being resized" );
+                // log.silly(parent);
+                // nodes.resizeToTexture("alo", name);
+            });
         }
-        // this.frame = 0;
-        // this.map = this.imgs[this.frame];
         this.frameindex = 0;
         this.frameimg = this.imgs[this.frameindex]
         this.map = this.frameimg;
@@ -47,8 +53,18 @@ class ImageSequence extends THREE.MeshBasicMaterial {
     }
 }
 
+function preload( ...names ) {
+    log.silly("preload:", names.length);
+    if( names.length > 0 ) {
+        log.silly("preloading array", names);
+        names.forEach(add);
+    } else {
+        log.silly("preloading all", names);
+    }
+}
+
 function add( name ) {
-    let path = datapath + "/imgs/" + name;
+    let path = datapath + "imgs/" + name;
     log.info(`add image sequence: '%s' from: '%s'`, name, path);
     sequencesmap.set( name, new ImageSequence(name, path) );
     return sequencesmap.get(name);
@@ -64,6 +80,7 @@ function list() {
     for(let k of sequencesmap.keys()) {
         log.info(sequencesmap.get(k).name);
     }
+    return sequencesmap.keys();
 }
 
 function get( name ) {
@@ -76,6 +93,7 @@ function has( name ) {
 
 module.exports = {
     ImageSequence: ImageSequence,
+    preload: preload,
     add: add,
     remove: remove,
     list: list,

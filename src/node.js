@@ -27,27 +27,68 @@ class Node extends THREE.Mesh {
     // }
 }
 
+function resizeToTexture( name, texturename ) {
+    // FIX: !!! cannot find texture.frameimg.imamge ???
+    log.silly( "node.resizeToTexture() alo:", name, texturename );
+    // log.silly( "node.resizeToTexture() node:", nodesmap.get(name).material.map );
+    // log.silly( "node.resizeToTexture() node:", nodesmap.get(name).material.map.image.height );
+    let ratio = nodesmap.get(name).material.map.image.width / nodesmap.get(name).material.map.image.height;
+    // log.silly("ratio", ratio);
+    // log.silly("width", nodesmap.get(name).geometry.parameters);
+    nodesmap.get(name).scale.set(ratio, 1, 1);
+    // log.silly("width", nodesmap.get(name).geometry.parameters);
+    // log.silly( "node.resizeToTexture() seq:", seqs.get(texturename));
+    // log.silly( "node.resizeToTexture():", seqs.list());
+}
+
 function update() {
     for(node of selected) {
         get(node).update();
     }
 }
 
-function add( name, texturename) {
-    log.info("add node:", name);
+function createNode( name, texturename ) {
+    let node = new Node(name, seqs.get(texturename));
+    nodesmap.set( name, node );
+    node.material = seqs.get(texturename);
+    scene.add(nodesmap.get(name));
+    return node;
+}
 
+function add( name, texturename ) {
+    log.info("add node:", name);
+    let node;
     if ( seqs.has(texturename) == false ) {
-        seqs.add( texturename );
+        // seqs.add( texturename, () => resizeToTexture(name, texturename) );
+        log.error("Cannot create node, texture '" + texturename + "' is not loaded")
+        alert("Cannot create node, texture '" + texturename + "' is not loaded")
+        // seqs.add( texturename );
+        return false;
     }
 
     if ( nodesmap.has(name) ) {
         log.warn(`Node '%s' already exists. Adding texture '%s' to it`, name, texturename);
-        nodesmap.get( name ).material = seqs.get(texturename);
+        node = nodesmap.get(name);
+        node.material = seqs.get(texturename);
     } else {
         log.info(`Add new node '%s' with texture '%s'`, name, texturename);
-        nodesmap.set( name, new Node(name, seqs.get(texturename)) );
-        scene.add(nodesmap.get(name));
+        node = createNode( name, texturename );
+        // let promise = new Promise(function(resolve, reject) {
+        //     node = createNode( name, texturename );
+        //     resolve(node.material.map);
+        //     reject("error");
+        // });
+        // promise.then(
+        //     function(value) {log.silly("promise:", value)},
+        //     function(error) {log.silly("promise:", error)},
+        // )
     }
+    // scene.onAfterRender(resizeToTexture(name, texturename));
+    // callback(name, seqs.get(texturename));
+    // resizeToTexture( name, texturename );
+    // resizeToTexture( name );
+    // log.silly("node.add():", node.material.map);
+    return true;
 }
 
 function remove( name ) {
@@ -153,6 +194,7 @@ function deselect( name ) {
 module.exports = {
     Node: Node,
     update: update,
+    resizeToTexture: resizeToTexture,
     add: add,
     remove: remove,
     list: list,

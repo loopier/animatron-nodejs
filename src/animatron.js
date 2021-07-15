@@ -64,10 +64,15 @@ function oscReceived(msg) {
 // test -- REMOVE
 // -----------------------------------------------------------------------------
 // nodes.add("anode", "default");
-nodes.add("anode", "mama");
-// nodes.add("anode", "hom-up-stairs-hd");
+// nodes.add("anode", "mama");
+// nodes.add("anode", "hom-up-stairs-bg");
 // nodes.add("anodanode", "mama");
-nodes.select("anode");
+// nodes.select("anode");
+// nodes.play();
+
+seqs.preload("mama", "hom-up-stairs-bg");
+// seqs.preload();
+nodes.add("anode", "hom-up-stairs-bg");
 nodes.play();
 
 // let a = 0;
