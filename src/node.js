@@ -59,10 +59,8 @@ function add( name, texturename ) {
     log.info("add node:", name);
     let node;
     if ( seqs.has(texturename) == false ) {
-        // seqs.add( texturename, () => resizeToTexture(name, texturename) );
         log.error("Cannot create node, texture '" + texturename + "' is not loaded")
         alert("Cannot create node, texture '" + texturename + "' is not loaded")
-        // seqs.add( texturename );
         return false;
     }
 
@@ -73,21 +71,9 @@ function add( name, texturename ) {
     } else {
         log.info(`Add new node '%s' with texture '%s'`, name, texturename);
         node = createNode( name, texturename );
-        // let promise = new Promise(function(resolve, reject) {
-        //     node = createNode( name, texturename );
-        //     resolve(node.material.map);
-        //     reject("error");
-        // });
-        // promise.then(
-        //     function(value) {log.silly("promise:", value)},
-        //     function(error) {log.silly("promise:", error)},
-        // )
     }
-    // scene.onAfterRender(resizeToTexture(name, texturename));
-    // callback(name, seqs.get(texturename));
-    // resizeToTexture( name, texturename );
-    // resizeToTexture( name );
-    // log.silly("node.add():", node.material.map);
+
+    resizeToTexture( name, texturename );
     return true;
 }
 

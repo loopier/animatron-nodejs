@@ -48,6 +48,7 @@ function oscReceived(msg) {
   let addr = msg[0];
   let args = msg.slice(1);
   let cmds = oscmap[addr];
+  log.silly("animatron::oscRecieved():", addr, args);
   for(cmd of cmds) {
     let obj = cmd.split(".")[0];
     let func = cmd.split(".")[1];
@@ -70,10 +71,10 @@ function oscReceived(msg) {
 // nodes.select("anode");
 // nodes.play();
 
-seqs.preload("mama", "hom-up-stairs-bg");
+// seqs.preload("mama", "hom-up-stairs-bg");
 // seqs.preload();
-nodes.add("anode", "hom-up-stairs-bg");
-nodes.play();
+// nodes.add("anode", "hom-up-stairs-bg");
+// nodes.play();
 
 // let a = 0;
 // gsap.to(a, {

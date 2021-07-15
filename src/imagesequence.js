@@ -16,15 +16,16 @@ class ImageSequence extends THREE.MeshBasicMaterial {
         let imgfiles = fs.readdirSync(this.path);
         this.imgs = new Array(imgfiles.length);
         for(let i=0; i < this.imgs.length; i++) {
-            this.imgs[i] = textureloader.load(this.path + "/" + imgfiles[i], function (obj) {
-                // w = obj.image.width;
-                // h = obj.image.height;
-                // log.silly("ImageSequence::constructor():", obj.image.width, obj.image.height);
-                // log.silly("ImageSequence::constructor():", obj.image.currentSrc);
-                // log.silly("do something with this!!! pass it to the node being resized" );
-                // log.silly(parent);
-                // nodes.resizeToTexture("alo", name);
-            });
+            this.imgs[i] = textureloader.load(
+                // path
+                this.path + "/" + imgfiles[i],
+                // onLoad
+                function (obj) {log.silly("loaded:", obj.image.currentSrc)},
+                // onProgress
+                null,
+                // onError
+                function (obj) {log.error("Failed to load '%s'", obj.image.currentSrc)}
+            );
         }
         this.frameindex = 0;
         this.frameimg = this.imgs[this.frameindex]
@@ -65,6 +66,10 @@ function preload( ...names ) {
 
 function add( name ) {
     let path = datapath + "imgs/" + name;
+    if( !fs.existsSync(path) ) {
+        log.error("'%s' doesn't exist", path)
+        return;
+    };
     log.info(`add image sequence: '%s' from: '%s'`, name, path);
     sequencesmap.set( name, new ImageSequence(name, path) );
     return sequencesmap.get(name);
