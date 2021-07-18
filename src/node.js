@@ -8,8 +8,9 @@ const clock = new THREE.Clock(true);
 
 class Node extends THREE.Mesh {
     constructor( name, texture ){
-        super( new THREE.PlaneGeometry(1,1), texture );
+        super( new THREE.PlaneGeometry(10,10), texture );
         this.name = name;
+        // this.position.set(0,0,-10);
         // this.texturename: texture.name;
         // this.fps = 24;
         // this.framerate = clock.getDelta();
@@ -112,7 +113,7 @@ function getNameFromIndex( index ) {
 function play( name ) {
     if (name != null) {
         log.silly("------------ node.play -----------", name);
-        get(name).material.play();
+        get(name).material.play(dur);
         // let mesh = get(name);
         // log.silly(mesh.material.name);
         // log.silly(mesh.material.map.image.src);
@@ -177,6 +178,14 @@ function deselect( name ) {
     log.info("selected nodes:", selected)
 }
 
+function dur( dur ) {
+    for(name of selected) {
+        log.silly("'"+name+"' dur:",dur);
+        let seq = seqs.get( nodesmap.get(name).material.name );
+        seq.setDur(dur);
+    }
+}
+
 module.exports = {
     Node: Node,
     update: update,
@@ -193,5 +202,6 @@ module.exports = {
     moveto: moveto,
     color: color,
     select: select,
-    deselect: deselect
+    deselect: deselect,
+    dur: dur
 }

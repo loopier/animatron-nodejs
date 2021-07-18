@@ -32,7 +32,7 @@ n.sendMsg("/select", "one");
 n.sendMsg("/select", "hom");
 n.sendMsg("/deselect", "alo");
 n.sendMsg("/rotate", 1.2.rand);
-n.sendMsg("/scale", 2.0);
+n.sendMsg("/scale", 20.0);
 
 n.sendMsg("/play", "hom");
 n.sendMsg("/play");
@@ -45,3 +45,13 @@ n.sendMsg("/add", "ma", "mama");
 n.sendMsg("/add", "one", "one");
 n.sendMsg("/resize", "anode", "hom-up-stairs-bg");
 n.sendMsg("/play", "hom");
+
+(
+n.sendMsg("/add", "hom", "hom-up-stairs-bg");
+n.sendMsg("/select", "hom");
+// n.sendMsg("/rotate", 0.25);
+n.sendMsg("/play");
+n.sendMsg("/dur", 2);
+)
+n.sendMsg("/dur", 8);
+n.sendMsg("/stop");

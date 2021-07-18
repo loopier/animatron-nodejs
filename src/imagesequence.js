@@ -32,6 +32,7 @@ class ImageSequence extends THREE.MeshBasicMaterial {
         this.map = this.frameimg;
         this.loop = true;
         this.palindrome = true;
+        this.dur = 1;
     }
 
     setFrame( framenumber ) {
@@ -39,9 +40,13 @@ class ImageSequence extends THREE.MeshBasicMaterial {
         this.map = this.imgs[this.frameindex];
     }
 
+    setDur ( dur ) {
+        this.anim.duration( dur );
+    }
+
     play() {
         this.anim = gsap.to(this, {
-            duration: 1,
+            duration: this.dur,
             frameindex: this.imgs.length-1,
             repeat: -1,
             yoyoEase: true,
@@ -55,12 +60,13 @@ class ImageSequence extends THREE.MeshBasicMaterial {
 }
 
 function preload( ...names ) {
-    log.silly("preload:", names.length);
+    // log.silly("preload:", names.length);
     if( names.length > 0 ) {
         log.silly("preloading array", names);
         names.forEach(add);
     } else {
         log.silly("preloading all", names);
+        files().forEach(add);
     }
 }
 
@@ -86,6 +92,18 @@ function list() {
         log.info(sequencesmap.get(k).name);
     }
     return sequencesmap.keys();
+}
+
+/// \brief Return a list of available sequence files (image folders in sequences path).
+function files() {
+    let path = datapath + "imgs/";
+    // let files = [];
+    // for(let f of fs.readdirSync(path)) {
+    //     log.silly(f);
+    //     files.push(f);
+    // }
+    // log.silly(typeof(files));
+    return fs.readdirSync(path);
 }
 
 function get( name ) {

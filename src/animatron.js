@@ -6,8 +6,8 @@ const config = new Store();
 const {gsap} = require('gsap')
 const THREE = require('three')
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-// const camera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, 1, 1000 );
+// const camera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, 0.1, 1000 );
+// const camera = new THREE.OrthographicCamera( window.innerWidth / 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2);
 const renderer = new THREE.WebGLRenderer();
 
 const osc = require(__dirname + '/src/osc.js');
@@ -19,7 +19,19 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setClearColor(0x402220, 1)
 document.body.appendChild( renderer.domElement );
 
-camera.position.z = 2;
+// perspective cam
+// const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+// camera.position.z = 1;
+
+// ortho cam
+const size = 10;
+const near = 5;
+const far = 50;
+// const camera = new THREE.OrthographicCamera(-size, size, size, -size, near, far);
+const aspect = window.innerWidth / window.innerHeight;
+const camera = new THREE.OrthographicCamera(-size * aspect, size * aspect, size, -size, 0.1, 100);
+camera.zoom = 0.2;
+camera.position.set(0, 0, 20);
 
 // -----------------------------------------------------------------------------
 // config
@@ -71,7 +83,12 @@ function oscReceived(msg) {
 // nodes.select("anode");
 // nodes.play();
 
-// seqs.preload("mama", "hom-up-stairs-bg");
+// const aplane =  new THREE.PlaneGeometry(10,10);
+// const amat = new THREE.MeshPhongMaterial({color: '#C3A'});
+// const amesh = new THREE.Mesh(aplane, amat);
+// scene.add(amesh);
+
+seqs.preload("mama", "hom-up-stairs-bg");
 // seqs.preload();
 // nodes.add("anode", "hom-up-stairs-bg");
 // nodes.play();
