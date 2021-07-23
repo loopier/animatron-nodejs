@@ -112,32 +112,25 @@ function getNameFromIndex( index ) {
 
 function play( name ) {
     if (name != null) {
-        log.silly("------------ node.play -----------", name);
-        get(name).material.play(dur);
-        // let mesh = get(name);
-        // log.silly(mesh.material.name);
-        // log.silly(mesh.material.map.image.src);
-        // log.silly(mesh.material.map.image.src);
-        // log.silly(mesh.material.imgs[08].image.src);
-        // log.silly(mesh.material.frameindex);
-        // log.silly(mesh.material);
-        // log.silly(mesh.material.map === mesh.material.frameimg);
-        // mesh.material.map = mesh.material.imgs[08];
-        // gsap.to(mesh.material, {
-        //     duration: 1.4,
-        //     map: 11,
-        //     repeat: 12,
-        //     onUpdate: () => {
-        //         log.silly("alo")
-        //         mesh.map = mesh.material.frameimg;
-        //     }
-        // })
+        log.silly("play", name);
+        get(name).material.play();
         return;
     }
 
-    log.silly("++++++++++++ node.play +++++++++++ selected");
+    // log.silly("++++++++++++ node.play +++++++++++ selected");
     for(name of selected) {
         play(name);
+    }
+}
+
+function stop( name ) {
+    if(name != null) {
+        log.silly("stop: ", name);
+        get(name).material.stop()
+        return;
+    }
+    for(name of selected) {
+        stop(name);
     }
 }
 
@@ -148,9 +141,29 @@ function gotoFrame( frame ) {
     }
 }
 
+function resetRotation() {
+    for(name of selected) {
+        nodesmap.get(name).rotation.x = 0;
+        nodesmap.get(name).rotation.y = 0;
+        nodesmap.get(name).rotation.z = 0;
+    }
+}
+
 function rotate( normalizedvalue ) {
     for(name of selected) {
         nodesmap.get(name).rotateZ(normalizedvalue * 2 * Math.PI);
+    }
+}
+
+function flipv() {
+    for(name of selected) {
+        nodesmap.get(name).rotateX(-Math.PI);
+    }
+}
+
+function fliph() {
+    for(name of selected) {
+        nodesmap.get(name).rotateY(-Math.PI);
     }
 }
 
@@ -168,6 +181,10 @@ function color( r, g, b ) {
 }
 
 function select( name ) {
+    if(selected.indexOf(name) > -1 || !nodesmap.has(name)) {
+        log.warn("Node '%s' doesn't exist or is already selected.", name);
+        return;
+    }
     selected.push( name );
     log.info("selected nodes:", selected)
 }
@@ -178,6 +195,10 @@ function deselect( name ) {
     log.info("selected nodes:", selected)
 }
 
+function listSelected() {
+    log.info("selected nodes:", selected);
+}
+
 function dur( dur ) {
     for(name of selected) {
         log.silly("'"+name+"' dur:",dur);
@@ -185,6 +206,26 @@ function dur( dur ) {
         seq.setDur(dur);
     }
 }
+
+function repeat( repeats ) {
+    for(name of selected) {
+        log.silly("'"+name+"' repeats:",dur);
+        let seq = seqs.get( nodesmap.get(name).material.name );
+        seq.setRepeats( repeats );
+    }
+}
+
+function loop( loop ) {
+    for(name of selected) {
+        log.silly("'"+name+"' loop:",dur);
+        let seq = seqs.get( nodesmap.get(name).material.name );
+        if( loop == "inf" ) {
+            loop = -1;
+        }
+        seq.setRepeats( loop );
+    }
+}
+
 
 module.exports = {
     Node: Node,
@@ -197,11 +238,18 @@ module.exports = {
     getByIndex: getByIndex,
     getNameFromIndex: getNameFromIndex,
     play: play,
+    stop: stop,
     gotoFrame: gotoFrame,
+    resetRotation: resetRotation,
     rotate: rotate,
+    flipv: flipv,
+    fliph: fliph,
     moveto: moveto,
     color: color,
     select: select,
     deselect: deselect,
-    dur: dur
+    selected: listSelected,
+    dur: dur,
+    repeat: repeat,
+    loop: loop
 }

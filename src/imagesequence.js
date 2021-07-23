@@ -30,9 +30,23 @@ class ImageSequence extends THREE.MeshBasicMaterial {
         this.frameindex = 0;
         this.frameimg = this.imgs[this.frameindex]
         this.map = this.frameimg;
-        this.loop = true;
+        this.loop = -1;
         this.palindrome = true;
-        this.dur = 1;
+
+        this.anim = gsap.to(this, {
+            duration: 1,
+            frameindex: this.imgs.length-1,
+            repeat: -1,
+            yoyoEase: true,
+            // ease: "steps(12)",
+            paused: true,
+            // onComplete: () => { log.silly(this.frameIndex) },
+            // onRepeat: () => { log.silly("REPEAT", this.anim.iteration()) },
+            onUpdate: () => {
+                // log.silly(this.frameindex);
+                this.map = this.imgs[Math.floor( this.frameindex )];
+            }
+        })
     }
 
     setFrame( framenumber ) {
@@ -44,18 +58,19 @@ class ImageSequence extends THREE.MeshBasicMaterial {
         this.anim.duration( dur );
     }
 
+    setRepeats ( repeats ) {
+        this.anim.repeat( repeats );
+    }
+
     play() {
-        this.anim = gsap.to(this, {
-            duration: this.dur,
-            frameindex: this.imgs.length-1,
-            repeat: -1,
-            yoyoEase: true,
-            // ease: "steps(12)",
-            onUpdate: () => {
-                // log.silly(this.frameindex);
-                this.map = this.imgs[Math.floor( this.frameindex )];
-            }
-        })
+        this.anim.paused( !this.anim.paused() )
+        // if( this.anim. ) {
+        //     this.anim.restart();
+        // }
+    }
+
+    stop() {
+        this.anim.pause();
     }
 }
 

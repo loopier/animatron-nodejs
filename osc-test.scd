@@ -51,7 +51,59 @@ n.sendMsg("/add", "hom", "hom-up-stairs-bg");
 n.sendMsg("/select", "hom");
 // n.sendMsg("/rotate", 0.25);
 n.sendMsg("/play");
-n.sendMsg("/dur", 2);
+// n.sendMsg("/loop", "inf");
+n.sendMsg("/dur", 1);
+n.sendMsg("/repeat", -1);
 )
-n.sendMsg("/dur", 8);
+n.sendMsg("/play"); // toggle
 n.sendMsg("/stop");
+
+n.sendMsg("/add", "down", "hom-up-stairs-bg");
+n.sendMsg("/select", "hom");
+n.sendMsg("/deselect", "hom");
+n.sendMsg("/rotate", 1.25);
+n.sendMsg("/selected");
+n.sendMsg("/remove", "hom");
+
+n.sendMsg("/loadsequence", "hom-down-stairs-hd", "hom-up-stairs-hd", "stairs");
+n.sendMsg("/listsequences");
+n.sendMsg("/add", "hom", "hom-up-stairs-hd");
+// n.sendMsg("/add", "hom", "hom-down-stairs-hd");
+n.sendMsg("/add", "stairs", "stairs");
+n.sendMsg("/select", "hom");
+// n.sendMsg("/remove", "hom");
+n.sendMsg("/play");
+// n.sendMsg("/repeat", -1);
+n.sendMsg("/dur", 4);
+// n.sendMsg("/rotate", 0.25);
+n.sendMsg("/flipv");
+n.sendMsg("/fliph");
+n.sendMsg("/resetrotation");
+
+(
+~pujaramunt = { |str|
+	n.sendMsg("/add", "hom", "hom-up-stairs-hd");
+	n.sendMsg("/play");
+	n.sendMsg("/dur", 4);
+	n.sendMsg("/resetrotation");
+};
+~pujaravall = { |str|
+	~pujaramunt.();
+	n.sendMsg("/flipv")
+};
+~baixaravall = { |str|
+	n.sendMsg("/add", "hom", "hom-down-stairs-hd");
+	n.sendMsg("/play");
+	n.sendMsg("/dur", 4);
+	n.sendMsg("/fliph");
+};
+~baixaramunt = { |str|
+	~baixaravall.();
+	n.sendMsg("/play");
+	n.sendMsg("/flipv");
+};
+~pujaramunt.();
+)
+~pujaravall.();
+~baixaravall.();
+~baixaramunt.();
